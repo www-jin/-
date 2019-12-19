@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxy.springboot.mapper.DishesMapper" >
+  <resultMap id="BaseResultMap" type="com.galaxy.springboot.entity.Dishes" >
+    <id column="dishes_id" property="dishesId" jdbcType="INTEGER" />
+    <result column="dishes_name" property="dishesName" jdbcType="VARCHAR" />
+    <result column="dishes_introduce" property="dishesIntroduce" jdbcType="VARCHAR" />
+    <result column="dishes_evaluation" property="dishesEvaluation" jdbcType="VARCHAR" />
+    <result column="dishes_code" property="dishesCode" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    dishes_id, dishes_name, dishes_introduce, dishes_evaluation, dishes_code
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.galaxy.springboot.entity.DishesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dishes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dishes
+    where dishes_id = #{dishesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dishes
+    where dishes_id = #{dishesId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.galaxy.springboot.entity.DishesExample" >
+    delete from dishes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.galaxy.springboot.entity.Dishes" >
+    insert into dishes (dishes_id, dishes_name, dishes_introduce, 
+      dishes_evaluation, dishes_code)
+    values (#{dishesId,jdbcType=INTEGER}, #{dishesName,jdbcType=VARCHAR}, #{dishesIntroduce,jdbcType=VARCHAR}, 
+      #{dishesEvaluation,jdbcType=VARCHAR}, #{dishesCode,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.galaxy.springboot.entity.Dishes" >
+    insert into dishes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dishesId != null" >
+        dishes_id,
+      </if>
+      <if test="dishesName != null" >
+        dishes_name,
+      </if>
+      <if test="dishesIntroduce != null" >
+        dishes_introduce,
+      </if>
+      <if test="dishesEvaluation != null" >
+        dishes_evaluation,
+      </if>
+      <if test="dishesCode != null" >
+        dishes_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dishesId != null" >
+        #{dishesId,jdbcType=INTEGER},
+      </if>
+      <if test="dishesName != null" >
+        #{dishesName,jdbcType=VARCHAR},
+      </if>
+      <if test="dishesIntroduce != null" >
+        #{dishesIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="dishesEvaluation != null" >
+        #{dishesEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="dishesCode != null" >
+        #{dishesCode,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.galaxy.springboot.entity.DishesExample" resultType="java.lang.Integer" >
+    select count(*) from dishes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dishes
+    <set >
+      <if test="record.dishesId != null" >
+        dishes_id = #{record.dishesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dishesName != null" >
+        dishes_name = #{record.dishesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dishesIntroduce != null" >
+        dishes_introduce = #{record.dishesIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dishesEvaluation != null" >
+        dishes_evaluation = #{record.dishesEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dishesCode != null" >
+        dishes_code = #{record.dishesCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dishes
+    set dishes_id = #{record.dishesId,jdbcType=INTEGER},
+      dishes_name = #{record.dishesName,jdbcType=VARCHAR},
+      dishes_introduce = #{record.dishesIntroduce,jdbcType=VARCHAR},
+      dishes_evaluation = #{record.dishesEvaluation,jdbcType=VARCHAR},
+      dishes_code = #{record.dishesCode,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.galaxy.springboot.entity.Dishes" >
+    update dishes
+    <set >
+      <if test="dishesName != null" >
+        dishes_name = #{dishesName,jdbcType=VARCHAR},
+      </if>
+      <if test="dishesIntroduce != null" >
+        dishes_introduce = #{dishesIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="dishesEvaluation != null" >
+        dishes_evaluation = #{dishesEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="dishesCode != null" >
+        dishes_code = #{dishesCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dishes_id = #{dishesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.galaxy.springboot.entity.Dishes" >
+    update dishes
+    set dishes_name = #{dishesName,jdbcType=VARCHAR},
+      dishes_introduce = #{dishesIntroduce,jdbcType=VARCHAR},
+      dishes_evaluation = #{dishesEvaluation,jdbcType=VARCHAR},
+      dishes_code = #{dishesCode,jdbcType=INTEGER}
+    where dishes_id = #{dishesId,jdbcType=INTEGER}
+  </update>
+</mapper>

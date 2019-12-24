@@ -1,0 +1,105 @@
+<!--pages/list/list.wxml-->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                        <icon type="clear" size="14"></icon>
+                    </view>
+                </view>
+                <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索</view>
+                </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                    <view>实时搜索文本</view>
+                </view>
+            </navigator>
+        </view>
+<view class="swiper-container">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{      {duration}}" circular="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperChange" class="swiper">
+    <block wx:for="{{imgUrls}}" wx:key="unique">
+
+      <swiper-item>
+
+        <image src="{{item}}" class="img" bindtap="swipclick" />
+
+      </swiper-item>
+
+    </block>
+
+  </swiper>
+</view>
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-grids">
+            <block wx:for="{{grids}}" wx:key="*this">
+                <navigator url="../{{item.url}}/{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
+                    <image class="weui-grid__icon"  src='{{item.img}}' />
+                    <view class="weui-grid__label" style='width:{{logoWidth}}'>{{item.name}}</view>
+                </navigator>
+            </block>
+        </view>
+</view>
+</view>
+<view class='near-store'>
+    <text class="near-store-text">附近商家</text>
+  </view>
+  <view class='tabs' id='tabs' bindtap='getTabsInfo'>
+    <view class="tab {{sortIndex==0?'active':''}}" data-index="0">
+      <text data-index="0">{{sortItem[sortListIndex]}}</text>
+      <text class='icon iconfont icon-row-bottom-copy' data-index="0"></text>
+    </view>
+    <view class="tab {{sortIndex==1?'active':''}}" data-index="1">销量最高</view>
+    <view class="tab {{sortIndex==2?'active':''}}" data-index="2">速度最快</view>
+    <view class="tab {{sortIndex==3?'active':''}}" data-index="3">
+      <text data-index="3">筛选</text>
+      <text class='icon iconfont icon-shaixuan' data-index="3"></text>
+    </view>
+  </view>
+  <view class='tabs tabs-fixed' wx:if="{{showFixed}}" bindtap='getFixedTabsInfo'>
+    <view class="tab {{sortIndex==0?'active':''}}" data-index="0">
+      <text data-index="0">{{sortItem[sortListIndex]}}</text>
+      <text class="icon iconfont {{showSort?'icon-row-up-copy':'icon-row-bottom-copy'}}" data-index="0"></text>
+    </view>
+    <view class="tab {{sortIndex==1?'active':''}}" data-index="1">销量最高</view>
+    <view class="tab {{sortIndex==2?'active':''}}" data-index="2">速度最快</view>
+    <view class="tab {{sortIndex==3?'active':''}}" data-index="3">
+      <text data-index="3">筛选</text>
+      <text class='icon iconfont icon-shaixuan' data-index="3"></text>
+    </view>
+    <view class='sort' catchtouchmove="move" style='height:{{sortHeight}}px' bindtap='selectSort' wx:if="{{showSort}}">
+      <view class="sort-item {{sortListIndex==index?'active':''}}" wx:for="{{sortItem}}" data-sortIndex="{{index}}" wx:key="item">{{item}}</view>
+    </view>
+  </view>
+  <view class='store-list'>
+    <store-list wx:for='{{storeList}}' wx:key="item.storeId" store-info="{{item}}" bind:select="select" class='store-item'></store-list>
+  </view>
+  <view class='footer'>暂无更多~~</view>
+</view>
+</view>
+
+

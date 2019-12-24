@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxy.springboot.mapper.StoreMapper" >
+  <resultMap id="BaseResultMap" type="com.galaxy.springboot.entity.Store" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="store_address" property="storeAddress" jdbcType="VARCHAR" />
+    <result column="store_ImgUrl" property="storeImgurl" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="saleMonth" property="salemonth" jdbcType="VARCHAR" />
+    <result column="minDelPrice" property="mindelprice" jdbcType="VARCHAR" />
+    <result column="delPrice" property="delprice" jdbcType="VARCHAR" />
+    <result column="averagePrice" property="averageprice" jdbcType="VARCHAR" />
+    <result column="delTime" property="deltime" jdbcType="VARCHAR" />
+    <result column="publicMsg" property="publicmsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    store_id, store_name, store_address, store_ImgUrl, score, saleMonth, minDelPrice, 
+    delPrice, averagePrice, delTime, publicMsg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.galaxy.springboot.entity.StoreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from store
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.galaxy.springboot.entity.StoreExample" >
+    delete from store
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.galaxy.springboot.entity.Store" >
+    insert into store (store_id, store_name, store_address, 
+      store_ImgUrl, score, saleMonth, 
+      minDelPrice, delPrice, averagePrice, 
+      delTime, publicMsg)
+    values (#{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, 
+      #{storeImgurl,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{salemonth,jdbcType=VARCHAR}, 
+      #{mindelprice,jdbcType=VARCHAR}, #{delprice,jdbcType=VARCHAR}, #{averageprice,jdbcType=VARCHAR}, 
+      #{deltime,jdbcType=VARCHAR}, #{publicmsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.galaxy.springboot.entity.Store" >
+    insert into store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="storeAddress != null" >
+        store_address,
+      </if>
+      <if test="storeImgurl != null" >
+        store_ImgUrl,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="salemonth != null" >
+        saleMonth,
+      </if>
+      <if test="mindelprice != null" >
+        minDelPrice,
+      </if>
+      <if test="delprice != null" >
+        delPrice,
+      </if>
+      <if test="averageprice != null" >
+        averagePrice,
+      </if>
+      <if test="deltime != null" >
+        delTime,
+      </if>
+      <if test="publicmsg != null" >
+        publicMsg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null" >
+        #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeImgurl != null" >
+        #{storeImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="salemonth != null" >
+        #{salemonth,jdbcType=VARCHAR},
+      </if>
+      <if test="mindelprice != null" >
+        #{mindelprice,jdbcType=VARCHAR},
+      </if>
+      <if test="delprice != null" >
+        #{delprice,jdbcType=VARCHAR},
+      </if>
+      <if test="averageprice != null" >
+        #{averageprice,jdbcType=VARCHAR},
+      </if>
+      <if test="deltime != null" >
+        #{deltime,jdbcType=VARCHAR},
+      </if>
+      <if test="publicmsg != null" >
+        #{publicmsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.galaxy.springboot.entity.StoreExample" resultType="java.lang.Integer" >
+    select count(*) from store
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update store
+    <set >
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeAddress != null" >
+        store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeImgurl != null" >
+        store_ImgUrl = #{record.storeImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salemonth != null" >
+        saleMonth = #{record.salemonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mindelprice != null" >
+        minDelPrice = #{record.mindelprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delprice != null" >
+        delPrice = #{record.delprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.averageprice != null" >
+        averagePrice = #{record.averageprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deltime != null" >
+        delTime = #{record.deltime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publicmsg != null" >
+        publicMsg = #{record.publicmsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update store
+    set store_id = #{record.storeId,jdbcType=INTEGER},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      store_ImgUrl = #{record.storeImgurl,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      saleMonth = #{record.salemonth,jdbcType=VARCHAR},
+      minDelPrice = #{record.mindelprice,jdbcType=VARCHAR},
+      delPrice = #{record.delprice,jdbcType=VARCHAR},
+      averagePrice = #{record.averageprice,jdbcType=VARCHAR},
+      delTime = #{record.deltime,jdbcType=VARCHAR},
+      publicMsg = #{record.publicmsg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.galaxy.springboot.entity.Store" >
+    update store
+    <set >
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null" >
+        store_address = #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeImgurl != null" >
+        store_ImgUrl = #{storeImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="salemonth != null" >
+        saleMonth = #{salemonth,jdbcType=VARCHAR},
+      </if>
+      <if test="mindelprice != null" >
+        minDelPrice = #{mindelprice,jdbcType=VARCHAR},
+      </if>
+      <if test="delprice != null" >
+        delPrice = #{delprice,jdbcType=VARCHAR},
+      </if>
+      <if test="averageprice != null" >
+        averagePrice = #{averageprice,jdbcType=VARCHAR},
+      </if>
+      <if test="deltime != null" >
+        delTime = #{deltime,jdbcType=VARCHAR},
+      </if>
+      <if test="publicmsg != null" >
+        publicMsg = #{publicmsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.galaxy.springboot.entity.Store" >
+    update store
+    set store_name = #{storeName,jdbcType=VARCHAR},
+      store_address = #{storeAddress,jdbcType=VARCHAR},
+      store_ImgUrl = #{storeImgurl,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      saleMonth = #{salemonth,jdbcType=VARCHAR},
+      minDelPrice = #{mindelprice,jdbcType=VARCHAR},
+      delPrice = #{delprice,jdbcType=VARCHAR},
+      averagePrice = #{averageprice,jdbcType=VARCHAR},
+      delTime = #{deltime,jdbcType=VARCHAR},
+      publicMsg = #{publicmsg,jdbcType=VARCHAR}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+</mapper>

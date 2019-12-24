@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxy.springboot.mapper.RightMapper" >
+  <resultMap id="BaseResultMap" type="com.galaxy.springboot.entity.Right" >
+    <id column="right_code" property="rightCode" jdbcType="INTEGER" />
+    <result column="right_text" property="rightText" jdbcType="VARCHAR" />
+    <result column="right_flag" property="rightFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    right_code, right_text, right_flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.galaxy.springboot.entity.RightExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from right
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from right
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from right
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.galaxy.springboot.entity.RightExample" >
+    delete from right
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.galaxy.springboot.entity.Right" >
+    insert into right (right_code, right_text, right_flag
+      )
+    values (#{rightCode,jdbcType=INTEGER}, #{rightText,jdbcType=VARCHAR}, #{rightFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.galaxy.springboot.entity.Right" >
+    insert into right
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rightCode != null" >
+        right_code,
+      </if>
+      <if test="rightText != null" >
+        right_text,
+      </if>
+      <if test="rightFlag != null" >
+        right_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rightCode != null" >
+        #{rightCode,jdbcType=INTEGER},
+      </if>
+      <if test="rightText != null" >
+        #{rightText,jdbcType=VARCHAR},
+      </if>
+      <if test="rightFlag != null" >
+        #{rightFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.galaxy.springboot.entity.RightExample" resultType="java.lang.Integer" >
+    select count(*) from right
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update right
+    <set >
+      <if test="record.rightCode != null" >
+        right_code = #{record.rightCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.rightText != null" >
+        right_text = #{record.rightText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rightFlag != null" >
+        right_flag = #{record.rightFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update right
+    set right_code = #{record.rightCode,jdbcType=INTEGER},
+      right_text = #{record.rightText,jdbcType=VARCHAR},
+      right_flag = #{record.rightFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.galaxy.springboot.entity.Right" >
+    update right
+    <set >
+      <if test="rightText != null" >
+        right_text = #{rightText,jdbcType=VARCHAR},
+      </if>
+      <if test="rightFlag != null" >
+        right_flag = #{rightFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.galaxy.springboot.entity.Right" >
+    update right
+    set right_text = #{rightText,jdbcType=VARCHAR},
+      right_flag = #{rightFlag,jdbcType=VARCHAR}
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </update>
+</mapper>
